@@ -1,3 +1,4 @@
+import os
 import numpy as np
 
 def evolveGeneration(agents, mutationRate=0.05):
@@ -60,7 +61,31 @@ def mutate(weights, rate):
     mutationMask = np.random.rand(len(weights)) < rate
     
     # Add random noise (-0.5 to 0.5) to those genes
-    noise = np.random.uniform(-0.5, 0.5, size=len(weights))
+    noise = np.random.uniform(-1.0, 1.0, size=len(weights))
     
     weights[mutationMask] += noise[mutationMask]
     return weights
+
+def saveBestBrain(agent, filename="best_brain.npy"):
+    """
+    Saves the weights of a single agent to a binary file.
+    """
+    # specific Agent -> .brainWeights -> numpy array
+    weights = agent['brainWeights']
+    np.save(filename, weights)
+    print(f"  [Saved] Best brain stored in {filename}")
+
+def loadBestBrain(filename="best_brain.npy"):
+    """
+    Tries to load brain weights from a file.
+    Returns the weights if found, otherwise returns None.
+    """
+    if os.path.exists(filename):
+        try:
+            weights = np.load(filename)
+            print(f"  [Loaded] Brain loaded from {filename}")
+            return weights
+        except:
+            print("  [Error] Could not load brain file.")
+            return None
+    return None

@@ -31,7 +31,7 @@ void computeBrain(Agent* agent, float* inputs) {
 
     // 3. Apply the "Decisions" to the agent
     // Output 0 controls steering (-0.1 to 0.1 radians)
-    agent->rotationAngle += (tanf(outputLayer[0]) * 0.1f);
+    agent->rotationAngle += (tanhf(outputLayer[0]) * 0.1f);
     
     // Output 1 controls speed (mapped to 0.0 - 5.0 range)
     agent->velocity = 1.0f + fastActivation(outputLayer[1]);
