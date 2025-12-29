@@ -34,5 +34,5 @@ void computeBrain(Agent* agent, float* inputs) {
     agent->rotationAngle += (tanhf(outputLayer[0]) * 0.1f);
     
     // Output 1 controls speed (mapped to 0.0 - 5.0 range)
-    agent->velocity = 1.0f + fastActivation(outputLayer[1]);
+    agent->velocity = 2.5f + fastActivation(outputLayer[1]);
 }
